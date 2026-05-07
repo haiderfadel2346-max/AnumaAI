@@ -1,0 +1,31 @@
+services:
+  privy-manager:
+    build: .
+    image: anuma-2api:latest
+    container_name: anuma-manager
+    restart: unless-stopped
+    command: python3 privy_manager.py
+    env_file:
+      - .env
+    environment:
+      - DB_PATH=/data/privy_manager.db
+    volumes:
+      - ./data:/data
+    ports:
+      - "${MANAGER_PORT:-7894}:7894"
+
+  api-server:
+    image: anuma-2api:latest
+    container_name: anuma-api
+    restart: unless-stopped
+    depends_on:
+      - privy-manager
+    command: python3 api_server.py
+    env_file:
+      - .env
+    environment:
+      - DB_PATH=/data/privy_manager.db
+    volumes:
+      - ./data:/data
+    ports:
+      - "${API_PORT:-7895}:7895"

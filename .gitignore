@@ -1,0 +1,48 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment files (contains secrets)
+.env
+.env.local
+.env.*.local
+
+# MCP configuration (contains personal tokens)
+.mcp.json
+
+# Database files (contains user data)
+*.db
+data/
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+Thumbs.db

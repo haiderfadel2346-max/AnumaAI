@@ -1,0 +1,5 @@
+requests>=2.28.0
+flask>=2.3.0
+fastapi
+uvicorn
+httpx[socks]>=0.28.0

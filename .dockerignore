@@ -1,0 +1,9 @@
+.DS_Store
+.git
+.gitignore
+.mcp.json
+__pycache__/
+*.pyc
+*.pyo
+*.log
+data/

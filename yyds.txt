@@ -1,0 +1,55 @@
+# yyds Mail API
+> Public integration summary for developers and AI assistants.
+> Base URL: https://maliapi.215.im/v1
+
+## Public Scope
+- Quick Start
+- Temporary Email
+- Messages
+- Webhooks
+- AI / LLM
+- Error Handling
+
+Additional public query endpoints:
+- GET /v1/domains
+- GET /v1/plans
+- GET /v1/pricing
+- GET /v1/domain-reward/config
+- GET /v1/stats
+
+## Authentication
+- Bearer JWT: Authorization: Bearer <access_token>
+- API Key: X-API-Key: AC-xxx
+- Temp Token: Authorization: Bearer <temp_token>
+- Temp tokens only work for temporary inbox flows
+- Anonymous temp inbox creation is only available through the official homepage bridge
+- Signed-in domain onboarding, wildcard rule management, and DNS automation are owner features inside the dashboard
+- DNS automation is optional. Without a service connection, custom-domain onboarding remains manual TXT + MX setup
+
+## Temporary Email
+POST /v1/accounts — Create a temporary inbox
+POST /v1/token — Refresh the temp token for the same active inbox
+GET  /v1/accounts/me — Get current temp inbox profile
+GET  /v1/accounts/{id} — Get temp inbox detail by ID
+DELETE /v1/accounts/{id} — Deactivate a temporary inbox
+
+## Messages
+GET  /v1/messages?address=xxx — List messages for an inbox
+POST /v1/messages/mark-read?address=xxx — Mark mailbox messages as read
+GET  /v1/messages/{id}?address=xxx — Get message detail
+PATCH /v1/messages/{id}?address=xxx — Update message state
+DELETE /v1/messages/{id}?address=xxx — Delete a message
+GET  /v1/sources/{id}?address=xxx — Get raw message source
+
+## Webhooks
+GET  /v1/me/webhooks — List webhook subscriptions
+POST /v1/me/webhooks — Create a webhook subscription
+PATCH /v1/me/webhooks/{id} — Update a webhook
+DELETE /v1/me/webhooks/{id} — Delete a webhook
+POST /v1/me/webhooks/{id}/test — Send a test event
+POST /v1/me/webhooks/{id}/regenerate-secret — Regenerate the webhook signing secret
+
+## Error Handling
+All errors follow the same envelope:
+{ "success": false, "error": "...", "errorCode": "..." }
+...

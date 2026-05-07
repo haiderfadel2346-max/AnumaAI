@@ -22,7 +22,8 @@ SOCKS5_PROXY = os.environ.get("SOCKS5_PROXY", "")
 # ---------------------------------------------------------------------------
 # Database
 # ---------------------------------------------------------------------------
-_DEFAULT_DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "privy_manager.db")
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_DEFAULT_DB = os.path.join(_ROOT, "privy_manager.db")
 DB_PATH = os.environ.get("DB_PATH", _DEFAULT_DB)
 
 # ---------------------------------------------------------------------------

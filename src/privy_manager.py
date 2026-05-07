@@ -3,6 +3,7 @@
 Anuma AI Registration Manager — Web UI for batch account registration.
 """
 import json
+import os
 import sqlite3
 import threading
 import time
@@ -18,7 +19,7 @@ from flask import Flask, render_template, request, jsonify
 
 from anuma_client import AnumaClient
 from config import (
-    DB_PATH, MAIL_API_KEY, SOCKS5_PROXY,
+    DB_PATH, MAIL_API_KEY,
     MANAGER_PORT, DEFAULT_TOTAL, DEFAULT_CONCURRENCY,
     DEFAULT_TIMEOUT, DEFAULT_INTERVAL, DEFAULT_DOMAIN, validate, get_proxies,
 )
@@ -26,7 +27,8 @@ from config import (
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("privy_manager")
 
-app = Flask(__name__)
+_TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "templates")
+app = Flask(__name__, template_folder=_TEMPLATE_DIR)
 
 # 全局状态
 task_status = {"is_running": False, "logs": [], "results": []}
@@ -237,7 +239,7 @@ def index():
         accounts.append({"email": acc[1], "status": acc[2], "credits": acc[3], "created_at": acc[9], "exp_str": exp_str, "exp_class": exp_class})
 
     domains = []
-    try: domains = AnumaClient(MAIL_API_KEY, proxies={"http":SOCKS5_PROXY,"https":SOCKS5_PROXY}).get_domains()
+    try: domains = AnumaClient(MAIL_API_KEY, proxies=get_proxies()).get_domains()
     except: pass
 
     config = {
@@ -284,7 +286,7 @@ def query_c():
         if email not in all_accs: continue
         acc = all_accs[email]
         try:
-            client = AnumaClient(MAIL_API_KEY, proxies={"http":SOCKS5_PROXY,"https":SOCKS5_PROXY})
+            client = AnumaClient(MAIL_API_KEY, proxies=get_proxies())
             client.identity_token = acc[5]
             try: bal = client.get_balance()
             except Exception as e:
@@ -305,7 +307,7 @@ def manual_r():
     acc = {a[1]: a for a in db.get_accounts()}.get(email)
     if not acc: return jsonify({"success": False})
     try:
-        client = AnumaClient(MAIL_API_KEY, proxies={"http":SOCKS5_PROXY,"https":SOCKS5_PROXY})
+        client = AnumaClient(MAIL_API_KEY, proxies=get_proxies())
         new_id = client.refresh_id_token(acc[6], acc[7])
         db.update_token(email, new_id, client.privy_access_token, client.refresh_token)
         return jsonify({"success": True, "expires_at": get_jwt_expiry(new_id)})

@@ -1,5 +1,7 @@
 # Anuma 2API Gateway
 
+[中文文档](README_CN.md)
+
 A self-hosted gateway that provides OpenAI/Anthropic-compatible APIs backed by [Anuma AI](https://anuma.ai) accounts. Includes automated account registration via temporary email, account pool management, and a load-balanced API server with automatic failover.
 
 > **Credits**: Temporary email service is powered by [小辣椒的临时邮箱](https://vip.215.im) (vip.215.im) — a fast, reliable temp mail API with generous free tier.
@@ -38,14 +40,22 @@ A self-hosted gateway that provides OpenAI/Anthropic-compatible APIs backed by [
 
 ## Project Structure
 
-| File | Purpose |
-|------|---------|
-| `config.py` | Centralized configuration from environment variables |
-| `anuma_client.py` | Low-level SDK: Privy auth, Anuma chat, temporary email client |
-| `privy_manager.py` | Flask web UI + batch registration engine |
-| `api_server.py` | FastAPI gateway with OpenAI/Anthropic compatible endpoints |
-| `templates/index.html` | Web dashboard template |
-| `docker-compose.yml` | Docker deployment orchestration |
+```
+├── src/
+│   ├── config.py            # Configuration from environment variables
+│   ├── anuma_client.py      # SDK: Privy auth, Anuma chat, temp mail
+│   ├── privy_manager.py     # Web UI + batch registration engine
+│   └── api_server.py        # FastAPI gateway (OpenAI/Anthropic)
+├── templates/
+│   └── index.html           # Web dashboard
+├── docs/
+│   └── yyds.txt             # Mail API reference
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+├── .env.example
+└── LICENSE
+```
 
 ## Quick Start
 
@@ -74,7 +84,7 @@ pip install -r requirements.txt
 ### 4. Start the Registration Manager (Web UI)
 
 ```bash
-python3 privy_manager.py
+python3 src/privy_manager.py
 ```
 
 Open http://localhost:7894 — configure registration count, concurrency, and click "Start" to batch-register accounts.
@@ -82,7 +92,7 @@ Open http://localhost:7894 — configure registration count, concurrency, and cl
 ### 5. Start the API Gateway
 
 ```bash
-python3 api_server.py
+python3 src/api_server.py
 ```
 
 The gateway runs on `http://localhost:7895/v1` by default (configurable via `API_PORT`).

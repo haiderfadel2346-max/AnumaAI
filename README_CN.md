@@ -1,5 +1,7 @@
 # Anuma 2API 网关
 
+[English](README.md)
+
 一个基于 [Anuma AI](https://anuma.ai) 账号的自托管 API 网关，提供 OpenAI/Anthropic 兼容接口。集成了临时邮箱自动注册、账号池管理、负载均衡及自动故障切换。
 
 > **致谢**: 临时邮箱服务由 [小辣椒的临时邮箱](https://vip.215.im) (vip.215.im) 提供 —— 快速稳定的临时邮箱 API，免费额度充足。
@@ -38,14 +40,22 @@
 
 ## 项目结构
 
-| 文件 | 说明 |
-|------|------|
-| `config.py` | 统一配置管理，从环境变量读取 |
-| `anuma_client.py` | 底层 SDK：Privy 认证、Anuma 对话、临时邮箱客户端 |
-| `privy_manager.py` | Flask Web 界面 + 批量注册引擎 |
-| `api_server.py` | FastAPI 网关，提供 OpenAI/Anthropic 兼容接口 |
-| `templates/index.html` | Web 管理面板模板 |
-| `docker-compose.yml` | Docker 容器编排 |
+```
+├── src/
+│   ├── config.py            # 环境变量配置管理
+│   ├── anuma_client.py      # SDK：Privy 认证、Anuma 对话、临时邮箱
+│   ├── privy_manager.py     # Web 界面 + 批量注册引擎
+│   └── api_server.py        # FastAPI 网关（OpenAI/Anthropic）
+├── templates/
+│   └── index.html           # Web 管理面板
+├── docs/
+│   └── yyds.txt             # 邮箱 API 参考文档
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+├── .env.example
+└── LICENSE
+```
 
 ## 快速开始
 
@@ -74,7 +84,7 @@ pip install -r requirements.txt
 ### 4. 启动注册管理器（Web 界面）
 
 ```bash
-python3 privy_manager.py
+python3 src/privy_manager.py
 ```
 
 访问 http://localhost:7894 — 设置注册总数和并发数，点击「开始任务」批量注册账号。
@@ -82,7 +92,7 @@ python3 privy_manager.py
 ### 5. 启动 API 网关
 
 ```bash
-python3 api_server.py
+python3 src/api_server.py
 ```
 
 网关默认运行在 `http://localhost:7895/v1`（可通过 `API_PORT` 环境变量修改）。

@@ -4,7 +4,7 @@ services:
     image: anuma-2api:latest
     container_name: anuma-manager
     restart: unless-stopped
-    command: python3 privy_manager.py
+    command: python3 src/privy_manager.py
     env_file:
       - .env
     environment:
@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     depends_on:
       - privy-manager
-    command: python3 api_server.py
+    command: python3 src/api_server.py
     env_file:
       - .env
     environment:

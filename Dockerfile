@@ -22,3 +22,7 @@ RUN mkdir -p /data
 EXPOSE 7894 7895
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
+
+COPY start.sh .
+RUN chmod +x start.sh
+CMD ["./start.sh"]

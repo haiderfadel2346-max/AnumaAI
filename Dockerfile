@@ -19,7 +19,7 @@ COPY . .
 
 RUN mkdir -p /data
 
-EXPOSE 7894 7895
+EXPOSE 8080 8080
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 

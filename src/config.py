@@ -29,8 +29,8 @@ DB_PATH = os.environ.get("DB_PATH", _DEFAULT_DB)
 # ---------------------------------------------------------------------------
 # Server ports
 # ---------------------------------------------------------------------------
-MANAGER_PORT = int(os.environ.get("MANAGER_PORT", "7894"))
-API_PORT = int(os.environ.get("API_PORT", "7895"))
+MANAGER_PORT = int(os.environ.get("MANAGER_PORT", "8080"))
+API_PORT = int(os.environ.get("API_PORT", "8080"))
 API_HOST = os.environ.get("API_HOST", "0.0.0.0")
 
 # ---------------------------------------------------------------------------

@@ -11,6 +11,6 @@ RUN pip install --no-cache-dir -r requirements.txt && \
     pip install --no-cache-dir "requests[socks]"
 COPY . .
 RUN mkdir -p /data
-EXPOSE 7895
+EXPOSE 8080
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["python3", "src/api_server.py"]
